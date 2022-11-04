@@ -7,15 +7,44 @@
 
 import SwiftUI
 
+extension Image {
+    func imageModifier() -> some View {
+        self
+            .resizable()
+            .scaledToFit()
+    }
+    
+    func iconModifier() -> some View {
+        self
+            .imageModifier()
+            .frame(maxWidth: 128)
+            .foregroundColor(.purple)
+            .opacity(0.5)
+    }
+}
+
 struct ContentView: View {
+    
+    private let imageUrl : String = "https://credo.academy/credo-academy@3x.png"
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        //MARK: - 1. BASIC
+        
+        //AsyncImage(url: URL(string: imageUrl))
+        
+        //MARK: - 2. SCALE
+        //AsyncImage(url: URL(string: imageUrl), scale: 3.0)
+        
+        //MARK: - 3. PLACEHOLDER
+        AsyncImage(url: URL(string: imageUrl)) { image in
+            image
+                .imageModifier()
+                
+        } placeholder: {
+            Image(systemName: "photo.circle.fill")
+                .iconModifier()
         }
-        .padding()
+        .padding(40)
     }
 }
 
